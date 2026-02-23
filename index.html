@@ -7,35 +7,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             text-align: center;
-            margin: 0;
-            padding: 50px;
         }
-        .button {
-            background-color: #4CAF50; /* Green */
+        h1 {
+            margin-bottom: 20px;
+        }
+        .projects {
+            display: flex;
+            gap: 20px;
+        }
+        .project-button {
+            background-color: #fff;
+            color: #2575fc;
             border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
+            padding: 15px 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
         }
-        .button:hover {
-            background-color: white;
-            color: black;
-            border: 2px solid #4CAF50;
+        .project-button:hover {
+            background-color: #2575fc;
+            color: #fff;
+            transform: translateY(-3px);
         }
     </style>
 </head>
 <body>
-    <h1>My Portfolio</h1>
-    <p>Welcome to my portfolio! Here are some of my projects:</p>
-    <a href="https://slabylol.github.io/Kick-the-Ragdoll/" class="button">Kick the Ragdoll</a>
-    <a href="https://slabylol.github.io/foxwebchat-/" class="button">FoxWebChat</a>
-    <a href="https://slabylol.github.io/ltbhost/" class="button">LTBHost</a>
+    <h1>Welcome to My Portfolio</h1>
+    <div class="projects">
+        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/Kick-the-Ragdoll'">Kick the Ragdoll</button>
+        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/FoxWebChat'">FoxWebChat</button>
+        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/LTBHost'">LTBHost</button>
+    </div>
 </body>
 </html>
