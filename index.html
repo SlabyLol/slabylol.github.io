@@ -1,51 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Spektakulärer Start</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: #fff;
+        :root {
+            --primary-color: #00f2fe;
+            --secondary-color: #4facfe;
+            --bg-color: #0f172a;
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
+        }
+
+        /* Container für den Button */
+        .container {
             text-align: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
         }
-        h1 {
-            margin-bottom: 20px;
-        }
-        .projects {
-            display: flex;
-            gap: 20px;
-        }
-        .project-button {
-            background-color: #fff;
-            color: #2575fc;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .start-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 20px 50px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            border-radius: 5px;
         }
-        .project-button:hover {
-            background-color: #2575fc;
-            color: #fff;
-            transform: translateY(-3px);
+
+        .start-btn:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 50px var(--primary-color);
+        }
+
+        /* Overlay für die Animation */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        /* Coole CSS-Animation: Hyperraum-Effekt */
+        .hyperspace {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            perspective: 500px;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        @keyframes travel {
+            0% {
+                transform: translateZ(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateZ(500px);
+                opacity: 0;
+            }
+        }
+
+        /* Text während der Animation */
+        .loading-text {
+            color: white;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            animation: pulse 1s infinite alternate;
+            z-index: 101;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.5; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Flash Effekt am Ende */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .flash.active {
+            animation: flash-anim 0.8s ease-out forwards;
+        }
+
+        @keyframes flash-anim {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Portfolio</h1>
-    <div class="projects">
-        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/Kick-the-Ragdoll'">Kick the Ragdoll</button>
-        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/FoxWebChat'">FoxWebChat</button>
-        <button class="project-button" onclick="window.location.href='https://github.com/SlabyLol/LTBHost'">LTBHost</button>
+
+    <div class="container" id="main-container">
+        <button class="start-btn" onclick="startSequence()">START</button>
     </div>
+
+    <div id="overlay">
+        <div class="hyperspace" id="hyperspace"></div>
+        <div class="loading-text">ENGAGING...</div>
+    </div>
+
+    <div class="flash" id="flash"></div>
+
+    <script>
+        function createStars() {
+            const hyperspace = document.getElementById('hyperspace');
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Zufällige Positionierung
+                const x = Math.random() * 200 - 100;
+                const y = Math.random() * 200 - 100;
+                const size = Math.random() * 2 + 1;
+                const duration = Math.random() * 1 + 0.5;
+                const delay = Math.random() * 2;
+
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `calc(50% + ${x}%)`;
+                star.style.top = `calc(50% + ${y}%)`;
+                
+                // Animation hinzufügen
+                star.style.animation = `travel ${duration}s linear ${delay}s infinite`;
+                
+                hyperspace.appendChild(star);
+            }
+        }
+
+        function startSequence() {
+            const container = document.getElementById('main-container');
+            const overlay = document.getElementById('overlay');
+            const flash = document.getElementById('flash');
+            
+            // 1. Button ausblenden
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                container.style.display = 'none';
+                // 2. Overlay anzeigen und Sterne generieren
+                overlay.style.display = 'flex';
+                createStars();
+                
+                // 3. Nach 3 Sekunden "Flash" und Weiterleitung
+                setTimeout(() => {
+                    flash.classList.add('active');
+                    
+                    setTimeout(() => {
+                        // HIER DIE ZIEL-URL EINTRAGEN
+                        window.location.href = "https://slabylol.github.io/BallFighting/"; 
+                    }, 500);
+                }, 3000);
+            }, 500);
+        }
+    </script>
 </body>
 </html>
